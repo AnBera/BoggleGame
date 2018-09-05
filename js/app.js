@@ -1,6 +1,6 @@
 
 (function () {
-
+    
     var BOGGLE_CONFIG = {
         BOARD_WIDTH : 4,
         BOARD_HEIGHT : 4,
@@ -275,5 +275,9 @@
     bindEvents();
 
     console.log('app loaded');
+
+    //======find test======
+    console.log(boardObj.find('TAS'))
+    //======find test======
 
 })();
