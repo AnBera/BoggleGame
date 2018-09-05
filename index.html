@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Boggle Game</title>
+    <link rel="stylesheet" href="style/styles.css">
+</head>
+
+<body>
+    
+    <section class="right-words-container">
+        <div class="words">
+            <span>Right Words</span>
+            <ul id="right-list">
+            </ul>
+        </div>
+    </section>
+
+    <section class="board-container">
+        <div class="clock-container">
+            <div id="clockdiv">
+                <div>
+                    <span class="minutes">00</span>
+                    <div class="smalltext">Minutes</div>
+                </div>
+                <div>
+                    <span class="seconds">00</span>
+                    <div class="smalltext">Seconds</div>
+                </div>
+            </div>
+        </div>
+        <br>        
+        <br>
+        <div style="display: table; margin: 0 auto;">
+            <span id='start-game' class='btn-primary'>Start Game</span>
+            <span id='reset-turn' class='btn-secondary'>Reset</span>
+
+            <div id='ponits' class='total'>0 Point(s)</div>
+            <div id="board">
+            </div>
+
+            <input id='entered' class="word" readonly type='text'>
+            <span id='add-word' class='btn-primary'>Add Word</span>
+        </div>        
+        <div id="error-msg"></div>
+    </section>
+
+    <section class="wrong-words-container">
+        <div class="words">
+            <span>Wrong Words</span>
+            <ul id="wrong-list">
+            </ul>
+        </div>
+    </section>
+
+    <script src="/js/board.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
