@@ -228,6 +228,13 @@
         for (let i = 0; i < colNode.length; i++) {
             colNode[i].addEventListener('click', onTileClick, false);
         }
+
+        let inputWordBox = document.getElementById("entered");
+        inputWordBox.addEventListener("keydown", function (e) {
+            if (e.keyCode === 13) {
+                onAddWord();
+            }
+        });
     }
 
     var createBoard = function () {
@@ -292,11 +299,11 @@
 
     console.log('app loaded');
 
-    //======find test======
-    console.log(boardObj.find('TAPAA'))
-    // console.log(boardObj.find('ASS'))
-    // console.log(boardObj.find('ASSROX'))
-    console.log(boardObj.find('ASSRO'))
-    //======find test======
+    // //======find test======
+    // console.log(boardObj.find('TAPAA'))
+    // // console.log(boardObj.find('ASS'))
+    // // console.log(boardObj.find('ASSROX'))
+    // console.log(boardObj.find('ASSRO'))
+    // //======find test======
 
 })();
