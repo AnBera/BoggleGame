@@ -9,13 +9,13 @@ A simple Boggle game where users can enter a word or select the 8 adjecent lette
 * Not tested in ie.
 * No third party JS library/ Framework has been used (not even Jquey). The Application is written purely in Javascript, HTML and CSS.
 * Few configurations like board size, dictionary file path, board configuration file path and the game time can be configured by changing the values of BOGGLE_CONFIG object fields in app.js. Later it can be exposed to user in order to make the game configurable.
-* Now you can select as well as type a word in the textbox.
-* For quick addition and ease of use, adding the word by pressing RETURN / ENTER key is also introduced. 
+* Now you can select a word in board as well as type a word in the textbox.
+* Adding the word by pressing RETURN / ENTER key is also introduced for quick addition and improved usability.
 * Only alphabet and asterisk (*) are allowed to be entered in textbox.
 * Color Condition (Hover over each resulting word to see the meaning of the color) ~
-    - If a word is present in board and in dictionary then it will be in 'Right Words' list having color GREEN
-    - If a word is present in board but not in dictionary then it will be in 'Wrong Words' list having color AMBER 
-    - If a word is not present in board the it will be in 'Wrong Words' list having color RED 
+    - If a word is present in board and in dictionary then it will be in 'Right Words' list - having color GREEN
+    - If a word is present in board but not in dictionary then it will be in 'Wrong Words' list - having color AMBER 
+    - If a word is not present in board the it will be in 'Wrong Words' list - having color RED 
 
 ## Prerequisites & Setup
 
