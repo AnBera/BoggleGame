@@ -194,6 +194,9 @@ ul {
 }
 
 .words #wrong-list li {
+    background-color: #f58a51;
+}
+.words #wrong-list li.not-board-word {
     background-color: #dc310e;
 }
 

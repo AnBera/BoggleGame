@@ -129,7 +129,8 @@
         let liEl = document.createElement('li');
         let wordText;
         let wordsContainer;
-        // document.getElementById('error-msg').textContent = '';
+        document.getElementById('error-msg').textContent = '';
+        word = document.getElementById('entered').value; //If users chose to enter a word from keyboard
 
         if (gameOver) {
             alert('Start a New Game');
@@ -139,25 +140,37 @@
             return;
         }
 
-        word = word.toLowerCase();
-        if (validateWord()) {
-            if (goodWords.indexOf(word) > -1) {
-                //word already selected
-                document.getElementById('error-msg').textContent = 'word already added';
+        word = word.toString().toLowerCase();//added toString just to safeguard beacuse we are accepting input from user
+        if(boardObj.find(word)) {
+            document.getElementById('error-msg').textContent = 'Word found in the board';
+            // let inBoard = 
+            if (validateWord()) {
+                if (goodWords.indexOf(word) > -1) {
+                    //word already selected
+                    document.getElementById('error-msg').textContent = 'word already added';
+                } else {
+                    //good word
+                    goodWords.push(word);
+                    wordText = document.createTextNode(word);
+                    wordsContainer = document.getElementById('right-list');
+                    document.getElementById('ponits').textContent = goodWords.length + ' Point(s)';
+                    liEl.appendChild(wordText);
+                    wordsContainer.appendChild(liEl);
+                }
             } else {
-                //good word
-                goodWords.push(word);
+                //word found in board but not in dict -- bad word
+                badWords.push(word);
                 wordText = document.createTextNode(word);
-                wordsContainer = document.getElementById('right-list');
-                document.getElementById('ponits').textContent = goodWords.length + ' Point(s)';
+                wordsContainer = document.getElementById('wrong-list');
                 liEl.appendChild(wordText);
                 wordsContainer.appendChild(liEl);
             }
         } else {
-            //bad word
+            //Word not found in board -- bad word
             badWords.push(word);
             wordText = document.createTextNode(word);
             wordsContainer = document.getElementById('wrong-list');
+            liEl.className = 'not-board-word';
             liEl.appendChild(wordText);
             wordsContainer.appendChild(liEl);
         }
