@@ -102,7 +102,7 @@ board.prototype.find = function (inputString) {
 
     for (let i = 0; i < this.height; i++) {
         for (let j = 0; j < this.width; j++) {
-            if(inputString[0] == this.canvasMatrix[i][j]) {
+            if((inputString[0].toLowerCase() === this.canvasMatrix[i][j].toLowerCase()) || this.canvasMatrix[i][j] === '*')  {
                 q.enqueue([ i, j, this.canvasMatrix[i][j], [{i:i, j:j}] ]);
                 console.log('i='+ i +' j='+j);
             }

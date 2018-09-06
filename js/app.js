@@ -278,6 +278,9 @@
 
     //======find test======
     console.log(boardObj.find('TAPAA'))
+    // console.log(boardObj.find('ASS'))
+    // console.log(boardObj.find('ASSROX'))
+    console.log(boardObj.find('ASSRO'))
     //======find test======
 
 })();
