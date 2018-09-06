@@ -217,9 +217,18 @@
         return false;
     };
 
+    var onAddWordWrapper = function () {
+        enteredWord = document.getElementById('entered').value;
+        document.getElementById('error-msg').textContent = '';
+        if (/^[a-zA-Z*]+$/.test(enteredWord)) {
+            onAddWord();
+        } else {
+            document.getElementById('error-msg').textContent = 'Oops! Word can contain only alphabets and asterisk (*)';
+        }
+    };
 
     var bindEvents = function () {
-        document.getElementById('add-word').onclick = onAddWord;
+        document.getElementById('add-word').onclick = onAddWordWrapper;
         document.getElementById('start-game').onclick = onStartGame;
         document.getElementById('reset-turn').onclick = resetTurn;
 
@@ -233,13 +242,7 @@
 
         inputWordBox.addEventListener("keydown", function (e) {
             if (e.keyCode === 13) {
-                enteredWord = document.getElementById('entered').value;
-                document.getElementById('error-msg').textContent = '';
-                if (/^[a-zA-Z]+$/.test(enteredWord)) {
-                    onAddWord();
-                } else {
-                    document.getElementById('error-msg').textContent = 'Oops! Word can contain only alphabets';
-                }                
+                onAddWordWrapper();
             }
         });
     }
