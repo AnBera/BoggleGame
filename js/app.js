@@ -224,15 +224,22 @@
         document.getElementById('reset-turn').onclick = resetTurn;
 
         var colNode = document.getElementsByClassName("col");
+        var enteredWord = '';
+        var inputWordBox = document.getElementById("entered");
 
         for (let i = 0; i < colNode.length; i++) {
             colNode[i].addEventListener('click', onTileClick, false);
         }
 
-        let inputWordBox = document.getElementById("entered");
         inputWordBox.addEventListener("keydown", function (e) {
             if (e.keyCode === 13) {
-                onAddWord();
+                enteredWord = document.getElementById('entered').value;
+                document.getElementById('error-msg').textContent = '';
+                if (/^[a-zA-Z]+$/.test(enteredWord)) {
+                    onAddWord();
+                } else {
+                    document.getElementById('error-msg').textContent = 'Oops! Word can contain only alphabets';
+                }                
             }
         });
     }
