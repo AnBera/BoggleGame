@@ -34,11 +34,10 @@ board.prototype.render = function() {
 };
 
 board.prototype.find = function (inputString) {
-    // var found = false;
-    var that = this;//, pixelContent = this.canvasMatrix[y - 1][x - 1];
+    var that = this;
 
-    //eligible Pixel Condition
-    var check_validity = function (x, y, prefix, visitedTrail) {
+    //eligible Condition to add letter into the queue
+    var checkValidity = function (x, y, prefix, visitedTrail) {
         //boundary condition
         if (x >= 0 && x < that.height && y >= 0 && y < that.width) {
 
@@ -73,17 +72,14 @@ board.prototype.find = function (inputString) {
                             }
                         }
                     }
-                    // if (equal) {
-                        console.log('prefix found, the prefix is - ' + boardWord);                        
-                        return equal;
-                    // }
+                    console.log('prefix found, the prefix is - ' + boardWord);                        
+                    return equal;
                 }
             };
 
-            //if boardword is a prefix of inputstring and if its not visited earlier       
+            //if boardWord is a prefix of inputString and if its not visited earlier       
             if (checkPrefixMatch((prefix + that.canvasMatrix[x][y]), inputString) && !isVisited(x, y, visitedTrail) ){
                 console.log('- - - - - - - - - ');
-                console.log('x='+ x +' y='+y);
                 console.log('Prefix='+ prefix );
                 return true;
             }            
@@ -91,32 +87,22 @@ board.prototype.find = function (inputString) {
         return false;
     };
 
-    // var paint = function (x, y) {
-    //     that.canvasMatrix[y - 1][x - 1] = color;
-    // };
-
-    // //start with a fresh visited matrix, everytime fill is called
-    // resetMatrix(this.visitedMatrix, this.width, this.height);
-
+    //not very fond of recursion
     var q = new queue();
 
     for (let i = 0; i < this.height; i++) {
         for (let j = 0; j < this.width; j++) {
             if((inputString[0].toLowerCase() === this.canvasMatrix[i][j].toLowerCase()) || this.canvasMatrix[i][j] === '*')  {
                 q.enqueue([ i, j, this.canvasMatrix[i][j], [{i:i, j:j}] ]);
-                console.log('i='+ i +' j='+j);
             }
         }
     }
 
     console.log(q);
-    
-    //####this matrix will take note of all the visited node so that we dont visit it agian
-    // this.visitedMatrix[y - 1][x - 1] = 1;
 
     var addNeighbour = function(neighbourX, neighbourY, prefix, visited){
         let visitedTrail = visited.slice(); //copy the array to avoid refernce
-        if (check_validity(neighbourX, neighbourY, prefix, visitedTrail)) {
+        if (checkValidity(neighbourX, neighbourY, prefix, visitedTrail)) {
             visitedTrail.push({i:neighbourX, j:neighbourY});
             console.log('~~~~~~~~~~~~~~~~~');
             console.log(visitedTrail);
@@ -125,7 +111,6 @@ board.prototype.find = function (inputString) {
                 prefix + that.canvasMatrix[neighbourX][neighbourY],
                 visitedTrail
             ]);
-            // that.visitedMatrix[y1 - 1][x1] = 1;
         }
     };
 
@@ -170,7 +155,6 @@ board.prototype.find = function (inputString) {
         console.log('==================');
         console.log(item);
         if(checkWordFound(item[2], inputString)) {
-            // found = true;
             console.log('word found');
             return true;
         }   
@@ -179,9 +163,8 @@ board.prototype.find = function (inputString) {
         y = item[1],
         prefix = item[2],
         visitedTrail = item[3];
-        // neighbourX = x
 
-        //check for adjecent 8 pixels - right, left, top, bottom
+        //check for adjecent 8 pixels - right, left, top, bottom and four corners
         addNeighbour(x+1, y, prefix, visitedTrail);
         addNeighbour(x-1, y, prefix, visitedTrail);
         addNeighbour(x, y+1, prefix, visitedTrail);
@@ -190,44 +173,6 @@ board.prototype.find = function (inputString) {
         addNeighbour(x+1, y+1, prefix, visitedTrail);
         addNeighbour(x-1, y+1, prefix, visitedTrail);
         addNeighbour(x-1, y-1, prefix, visitedTrail);
-        
-        // if (check_validity(x+1, y, prefix)) {
-        //     q.enqueue([x+1, y, prefix + that.canvasMatrix[x+1][y]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-
-        // if (check_validity(x-1, y, prefix)) {
-        //     q.enqueue([x-1, y, prefix + that.canvasMatrix[x-1][y]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-
-        // if (check_validity(x, y+1, prefix)) {
-        //     q.enqueue([x, y+1, prefix + that.canvasMatrix[x][y+1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-
-        // if (check_validity(x, y-1, prefix)) {
-        //     q.enqueue([x, y-1, prefix + that.canvasMatrix[x][y-1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-
-        // if (check_validity(x+1, y-1, prefix)) {
-        //     q.enqueue([x+1, y-1, prefix + that.canvasMatrix[x+1][y-1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-        // if (check_validity(x+1, y+1, prefix)) {
-        //     q.enqueue([x+1, y+1, prefix + that.canvasMatrix[x+1][y+1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-
-        // if (check_validity(x-1, y+1, prefix)) {
-        //     q.enqueue([x-1, y+1, prefix + that.canvasMatrix[x-1][y+1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
-        // if (check_validity(x-1, y-1, prefix)) {
-        //     q.enqueue([x-1, y-1, prefix + that.canvasMatrix[x-1][y-1]], visitedTrail.push({i:x+1, j:y}) );
-        //     // that.visitedMatrix[y1 - 1][x1] = 1;
-        // }
 
     }
     return false;

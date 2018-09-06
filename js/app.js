@@ -143,7 +143,7 @@
         word = word.toString().toLowerCase();//added toString just to safeguard beacuse we are accepting input from user
         if(boardObj.find(word)) {
             document.getElementById('error-msg').textContent = 'Word found in the board';
-            // let inBoard = 
+            
             if (validateWord()) {
                 if (goodWords.indexOf(word) > -1) {
                     //word already selected
