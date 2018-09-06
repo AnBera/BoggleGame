@@ -50,8 +50,38 @@ board.prototype.find = function (inputString) {
                 }
                 return false;
             };
-            //if the color is same as the starting fill coordinate and if its not visited        
-            if (inputString.startsWith(prefix + that.canvasMatrix[x][y]) && !isVisited(x, y, visitedTrail) ){
+
+            var checkPrefixMatch = function(boardWord, inputString){
+                var indices = [];
+                for (let i = 0; i < boardWord.length; i++) {
+                    if (boardWord[i] === '*')
+                        indices.push(i);
+                }
+                if (indices.length === 0 && inputString.toLowerCase().startsWith(boardWord.toLowerCase()) ) {
+                    console.log('prefix is found in direct match');
+                    return true;
+                }
+        
+                if (boardWord.length <= inputString.length) {
+                    let equal = true;
+                    //check whether board word is a pefix of inputstring ignoring the *
+                    for (let j = 0; j < boardWord.length; j++) {
+                        if (indices.indexOf(j) === -1) {
+                            if (boardWord[j].toLowerCase() !== inputString[j].toLowerCase()) {
+                                equal = false;
+                                return equal; //not match
+                            }
+                        }
+                    }
+                    // if (equal) {
+                        console.log('prefix found, the prefix is - ' + boardWord);                        
+                        return equal;
+                    // }
+                }
+            };
+
+            //if boardword is a prefix of inputstring and if its not visited earlier       
+            if (checkPrefixMatch((prefix + that.canvasMatrix[x][y]), inputString) && !isVisited(x, y, visitedTrail) ){
                 console.log('- - - - - - - - - ');
                 console.log('x='+ x +' y='+y);
                 console.log('Prefix='+ prefix );
@@ -99,13 +129,49 @@ board.prototype.find = function (inputString) {
         }
     };
 
+    var checkWordFound = function(boardWord, inputString){
+        var indices = [];
+        for (let i = 0; i < boardWord.length; i++) {
+            if (boardWord[i] === '*')
+                indices.push(i);
+        }
+        if (indices.length === 0 && inputString.toLowerCase() === boardWord.toLowerCase()) {
+            console.log('word is found in direct match');
+            return true;
+        }
+
+        if (inputString.length === boardWord.length) {
+            let equal = true;
+            //each word
+            for (let j = boardWord.length - 1; j >= 0; j--) {
+                if (indices.indexOf(j) === -1) {
+                    if (boardWord[j].toLowerCase() !== inputString[j].toLowerCase()) {
+                        equal = false;
+                        break; //not match
+                    }
+                }
+            }
+            if (equal) {
+                console.log('word found, the word is - ' + inputString);
+                boardWord = inputString; //May be dangerous need to check
+                return equal;
+            }
+
+        }
+
+        console.log('word is not found yet');
+        return false;
+
+    };
+
     //run untill the queue is exhausted
     while (!q.isEmpty()) {
         let item = q.dequeue();
         console.log('==================');
         console.log(item);
-        if(item[2] === inputString) {
+        if(checkWordFound(item[2], inputString)) {
             // found = true;
+            console.log('word found');
             return true;
         }   
         

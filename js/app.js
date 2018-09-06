@@ -277,7 +277,7 @@
     console.log('app loaded');
 
     //======find test======
-    console.log(boardObj.find('TAS'))
+    console.log(boardObj.find('TAPAA'))
     //======find test======
 
 })();
