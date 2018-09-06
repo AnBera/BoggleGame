@@ -154,6 +154,7 @@
                     wordText = document.createTextNode(word);
                     wordsContainer = document.getElementById('right-list');
                     document.getElementById('ponits').textContent = goodWords.length + ' Point(s)';
+                    liEl.setAttribute('title', 'Word is present in the board and in dictionary');
                     liEl.appendChild(wordText);
                     wordsContainer.appendChild(liEl);
                 }
@@ -162,6 +163,7 @@
                 badWords.push(word);
                 wordText = document.createTextNode(word);
                 wordsContainer = document.getElementById('wrong-list');
+                liEl.setAttribute('title', 'Word is present in the board but not in dictionary');
                 liEl.appendChild(wordText);
                 wordsContainer.appendChild(liEl);
             }
@@ -171,6 +173,7 @@
             wordText = document.createTextNode(word);
             wordsContainer = document.getElementById('wrong-list');
             liEl.className = 'not-board-word';
+            liEl.setAttribute('title', 'Word is not present in the board');
             liEl.appendChild(wordText);
             wordsContainer.appendChild(liEl);
         }
