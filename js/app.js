@@ -218,7 +218,7 @@
     };
 
     var onAddWordWrapper = function () {
-        enteredWord = document.getElementById('entered').value;
+        var enteredWord = document.getElementById('entered').value;
         document.getElementById('error-msg').textContent = '';
         if (/^[a-zA-Z*]+$/.test(enteredWord)) {
             onAddWord();
@@ -233,7 +233,6 @@
         document.getElementById('reset-turn').onclick = resetTurn;
 
         var colNode = document.getElementsByClassName("col");
-        var enteredWord = '';
         var inputWordBox = document.getElementById("entered");
 
         for (let i = 0; i < colNode.length; i++) {
