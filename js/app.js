@@ -54,6 +54,11 @@
         rawFile.send(null);
     };
 
+    var readBoardConf = function (contents) {
+        let separator =',';
+        boardConf = contents.split(separator).map(item => item.trim());
+    };
+
     var onTileClick = function (event) {
         //if it is an active neighbor
         //clear the array push 8 neighbor in an array after checking boundary condition and visited node
@@ -227,17 +232,25 @@
         }
     };
 
+    var initializeBoardConfig = function(){
+        readBoardConf(document.getElementById('board-config-txt').value)
+
+        console.log(boardConf);
+        createBoard();
+    };
+
     var bindEvents = function () {
         document.getElementById('add-word').onclick = onAddWordWrapper;
         document.getElementById('start-game').onclick = onStartGame;
         document.getElementById('reset-turn').onclick = resetTurn;
+        document.getElementById('board-config-input').onclick = initializeBoardConfig;
 
-        var colNode = document.getElementsByClassName("col");
         var inputWordBox = document.getElementById("entered");
+        // var colNode = document.getElementsByClassName("col");
 
-        for (let i = 0; i < colNode.length; i++) {
-            colNode[i].addEventListener('click', onTileClick, false);
-        }
+        // for (let i = 0; i < colNode.length; i++) {
+        //     colNode[i].addEventListener('click', onTileClick, false);
+        // }
 
         inputWordBox.addEventListener("keydown", function (e) {
             if (e.keyCode === 13) {
@@ -247,11 +260,22 @@
     }
 
     var createBoard = function () {
-        readFile(BOGGLE_CONFIG.BOARD_CONFIG_FILE_PATH, 'board', ',');
+        // readFile(BOGGLE_CONFIG.BOARD_CONFIG_FILE_PATH, 'board', ',');
+        
+
         boardObj = new board(BOGGLE_CONFIG.BOARD_WIDTH, BOGGLE_CONFIG.BOARD_HEIGHT);
         boardObj.initilizeCanvas(boardConf);
         boardObj.render();
+
+        var colNode = document.getElementsByClassName("col");
+        
+
+        for (let i = 0; i < colNode.length; i++) {
+            colNode[i].addEventListener('click', onTileClick, false);
+        }
     };
+
+
 
     var getTimeRemaining = function (endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
@@ -288,6 +312,8 @@
         timeinterval = setInterval(updateClock, 1000);
     };
 
+    
+
 
     var onStartGame = function () {
         gameOver = false;
@@ -302,8 +328,8 @@
         initializeClock('clockdiv', deadline);
     };
 
-    createBoard();
-    readFile(BOGGLE_CONFIG.DICTIONARY_FILE_PATH, 'dict', '\n');
+    // createBoard();
+    // readFile(BOGGLE_CONFIG.DICTIONARY_FILE_PATH, 'dict', '\n');
     bindEvents();
 
     console.log('app loaded');
