@@ -261,21 +261,16 @@
 
     var createBoard = function () {
         // readFile(BOGGLE_CONFIG.BOARD_CONFIG_FILE_PATH, 'board', ',');
-        
-
         boardObj = new board(BOGGLE_CONFIG.BOARD_WIDTH, BOGGLE_CONFIG.BOARD_HEIGHT);
         boardObj.initilizeCanvas(boardConf);
         boardObj.render();
 
         var colNode = document.getElementsByClassName("col");
-        
 
         for (let i = 0; i < colNode.length; i++) {
             colNode[i].addEventListener('click', onTileClick, false);
         }
     };
-
-
 
     var getTimeRemaining = function (endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
@@ -311,9 +306,6 @@
         updateClock();
         timeinterval = setInterval(updateClock, 1000);
     };
-
-    
-
 
     var onStartGame = function () {
         gameOver = false;
